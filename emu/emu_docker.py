@@ -95,7 +95,7 @@ def create_docker_image(args):
         if args.sys:
             continue
 
-        emu_docker = EmulatorContainer(emu, sys_docker, args.repo, cfg.collect_metrics(), args.extra)
+        emu_docker = EmulatorContainer(emu, sys_docker, args.repo,args.custom_image_name, cfg.collect_metrics(), args.extra)
         emu_docker.build(args.dest)
 
         if args.start:
@@ -197,6 +197,10 @@ def main():
         "--repo",
         default="us-docker.pkg.dev/android-emulator-268719/images",
         help="Repo prefix, for example: us.gcr.io/emu-dev/",
+    )
+    create_parser.add_argument(
+        "--custom_image_name",
+        help="Create your own image name.",
     )
     create_parser.add_argument(
         "--push",
